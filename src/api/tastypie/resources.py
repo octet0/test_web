@@ -20,3 +20,13 @@ class PersonResource(ModelResource):
             'nom': ALL
         }
         authorization = Authorization()
+    
+    def dehydrate(self, bundle):
+        bundle.data['age'] = bundle.obj.calculate_age()
+        # try:
+        #     #bundle.data['flocking'] = list(bundle.obj.flocking.order_by('rank').values('product_id'))
+        #     bundle.data['flocking'] = model_to_dict(bundle.obj.flocking, exclude=['id', 'productflocking'])
+        # except ObjectDoesNotExist:
+        #     bundle.data['flocking'] = dict()
+        # bundle.data['patch'] = list(bundle.obj.flockingpatch.values('product_id'))
+        return bundle
